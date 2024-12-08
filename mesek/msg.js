@@ -33,7 +33,6 @@ export default async function Message(hisoka, m, chatUpdate) {
         const command = isCmd ? m.command.toLowerCase() : ""
         const quoted = m.isQuoted ? m.quoted : m
 
-        /*
         if (!m.isGroup && !isCmd && !m.key.fromMe) {
             if (m.body.toLowerCase()) {
                 let req = await Func.fetchJson(`https://acawapi.vercel.app/v2/acaw?q=${m.body}`)
@@ -48,16 +47,12 @@ export default async function Message(hisoka, m, chatUpdate) {
                 }
             }
         }
-        */
 
         // verifikasi
-        if (isCmd) {
+        if (isCmd && !m.key.fromMe) {
             let hhh = user.find(i => i.phone === m.sender)
-            let text = "Nomor kamu belum terdaftar di database Hinata - Bot\n\nUntuk Memverifikasi silahkan klik link dibawah ini👇\nhttps://l09ce6ea-1qdjs5no-jm5bffts5yts.ac4-preview.marscode.dev"
+            let text = "*[] ACCESS DENIED*\n\nUntuk mendapatkan Akses() Verifikasi Nomor kamu dulu, ya!, Klik link dibawah untuk Verifikasi \n"
             if (hhh === undefined) return m.reply(text)
-            if (hhh.status === false) {
-                return m.reply(`Nomor kamu belum Terverifikasi, silahkan ketik *${prefix}verifikasi ${hhh.kode}*`)
-            }
         }
 
         // log chat
@@ -67,16 +62,6 @@ export default async function Message(hisoka, m, chatUpdate) {
 
         switch (command) {
         	// main
-            case "verifikasi": {
-            	let hhh = user.find(i => i.phone === m.sender)
-                if (hhh.status === true) return m.reply("Nomor kamu sudah Terverifikasi!")
-                if (hhh.status === false) {
-                	hhh.status = true
-                    fs.writeFileSync('./views/user.json', JSON.stringify(user, null, 2))
-                    await m.reply(`Sukses, silahkan ketik ${prefix}menu`)
-                }
-            }
-            break
         	case "menu": case "help": {
                 let text = `*List*
 ${prefix}tiktok
@@ -151,7 +136,7 @@ ${prefix}quote
             break
             case "faketweet": case "ft": {
                 const canvafy = require("canvafy")
-                if (!m.text) return m.reply(`Contoh: ${prefix + command} Nama|username|Text\n\nPenggunaan: ${prefix + command} Riy|riycs|Hai`)
+                if (!m.text) return m.reply(`Penggunaan: ${prefix + command} Nama|username|Text\n\nContoh: ${prefix + command} Riy|riycs|Hai`)
                 let [nama1, nama2, text] = m.text.split("|")
                 let profile = await hisoka.profilePictureUrl(m.sender, "image").catch(_=> "https://telegra.ph/file/6880771a42bad09dd6087.jpg")
                 if (!nama2) return m.reply(`Masukkan username!\n\n*Penggunaan:*\n${prefix + command} Riy|riycs|Hai`)
