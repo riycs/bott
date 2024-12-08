@@ -1,6 +1,6 @@
 export default {
    options: {
-      public: false,
+      public: true,
       antiCall: true,
       owner: ["6281575886399", "6285813334446"],
       sessionName: "session",
