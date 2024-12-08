@@ -40,7 +40,7 @@ app.get('/verifikasi', async (req, res) => {
     let name = req.query.name
     let phone = req.query.phone
     let kode = Math.floor(Math.random() * 10000)
-	let dbx = user.find(i => i.phone === phone)
+	let dbx = user.find(i => i.phone === phone+'@s.whatsapp.net')
     if (dbx !== undefined) {
         if (dbx.status === false) {
             res.json({
