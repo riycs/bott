@@ -54,10 +54,9 @@ export default async function Message(hisoka, m, chatUpdate) {
         if (isCmd) {
             let hhh = user.find(i => i.phone === m.sender)
             let text = "Nomor kamu belum terdaftar di database Hinata - Bot\n\nUntuk Memverifikasi silahkan klik link dibawah ini👇\nhttps://l09ce6ea-1qdjs5no-jm5bffts5yts.ac4-preview.marscode.dev"
-            let text2 = `Nomor kamu belum Terverifikasi, silahkan ketik *${prefix}verifikasi ${hhh.kode}*`
             if (hhh === undefined) return m.reply(text)
             if (hhh.status === false) {
-                return hisoka.sendMessage(m.from, { image: { url: 'https://d.top4top.io/p_3264pal7y0.jpg' }, caption: text2 }, { quoted: m })
+                return m.reply(`Nomor kamu belum Terverifikasi, silahkan ketik *${prefix}verifikasi ${hhh.kode}*`)
             }
         }
 
@@ -68,7 +67,7 @@ export default async function Message(hisoka, m, chatUpdate) {
 
         switch (command) {
         	// main
-            case prefix "verifikasi": {
+            case "verifikasi": {
             	let hhh = user.find(i => i.phone === m.sender)
                 if (hhh.status === true) return m.reply("Nomor kamu sudah Terverifikasi!")
                 if (hhh.status === false) {
