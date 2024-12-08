@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Hinata - Bot</title>
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <!--- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"> --->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="css/ruang-admin.min.css" rel="stylesheet">
+</head>
+<body id="page-top">
+  <div id="wrapper">  	
+<!-- Sidebar -->
+<div id="content-wrapper" class="d-flex flex-column">
+  <div id="content">  	
+<!-- TopBar -->
+<nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
+  <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
+  </button>
+  <ul class="navbar-nav ml-auto">
+<li class="nav-item dropdown no-arrow">
+  </a>
+  <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+aria-labelledby="searchDropdown">
+<form class="navbar-search">
+  <div class="input-group">
+<div class="input-group-append">
+  <button class="btn btn-primary" type="button">	
+<i class="fas fa-search fa-sm"></i>
+  </button>
+</div>
+  </div>
+</form>
+  </div>
+</li>
+<li class="nav-item dropdown no-arrow mx-1">
+  <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
+aria-haspopup="true" aria-expanded="false">
+<i class="fas fa-bell fa-fw"></i>
+<span class="badge badge-danger badge-counter">2</span>
+  </a>
+  <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+aria-labelledby="alertsDropdown">
+<h6 class="dropdown-header">
+  Notification
+</h6>
+<a class="dropdown-item d-flex align-items-center" href="#">
+  <div class="mr-3">
+<div class="icon-circle bg-primary">
+  <i class="fas fa-bell text-white"></i>
+</div>
+  </div>
+  <div>
+<div class="small text-gray-500">2 Agustus 2021</div>
+<span class="font-weight-bold">Website Dibuat Owner</span>
+  </div>
+</a>
+<a class="dropdown-item d-flex align-items-center" href="#">
+  <div class="mr-3">
+<div class="icon-circle bg-warning">
+  <i class="fas fa-file-alt text-white"></i>
+</div>
+  </div>
+  <div>
+<div class="small text-gray-500">5 Agustus 2021</div>
+<span class="font-weight-bold">Website Resmi Public</span>
+  </div>
+</a>
+<a class="dropdown-item text-center small text-gray-500" href="#">Lihat Semua Notifikasi</a>
+  </div>
+</li>
+<li class="nav-item dropdown no-arrow mx-1">
+  <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
+aria-haspopup="true" aria-expanded="false">
+<i class="fas fa-envelope fa-fw"></i>
+<span class="badge badge-warning badge-counter">3</span>
+  </a>
+  <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+aria-labelledby="messagesDropdown">
+<h6 class="dropdown-header">
+  Message 
+</h6>
+<a class="dropdown-item d-flex align-items-center" href="#">
+  <div class="dropdown-list-image mr-3">
+<img class="rounded-circle" src="https://g.top4top.io/p_3262qz8xa0.jpg" style="max-width: 60px" alt="">
+<div class="status-indicator bg-success"></div>
+  </div>
+  <div class="font-weight-bold">
+<div class="text-truncate">Muach
+ </div>
+<div class="small text-gray-500">@riiycs · baru saja</div>
+  </div>
+</a>
+<a class="dropdown-item d-flex align-items-center" href="#">
+  <div class="dropdown-list-image mr-3">
+<img class="rounded-circle" src="https://h.top4top.io/p_32628h12m1.jpg" style="max-width: 60px" alt="">
+<div class="status-indicator bg-default"></div>
+  </div>
+<div class="font-weight-bold">
+<div class="text-truncate">Riy keren banget!
+</div>
+<div class="small text-gray-500">@agelcs · 1 menit yang lalu</div>
+  </div>
+</a>
+<a class="dropdown-item d-flex align-items-center" href="#">
+<div class="dropdown-list-image mr-3">
+<img class="rounded-circle" src="https://i.top4top.io/p_3262p7ia22.jpg" style="max-width: 60px" alt="">
+<div class="status-indicator bg-default"></div>
+ </div>
+<div class="font-weight-bold">
+<div class="text-truncate">Hello user Hinata Bot🤗
+</div>
+<div class="small text-gray-500">@yogacs · 5 menit yang lalu</div>
+</div>
+</a>
+<a class="dropdown-item text-center small text-gray-500" href="#">Baca Pesan Selanjutnya</a>
+  </div>
+</li>
+<div class="topbar-divider d-none d-sm-block"></div>
+<li class="nav-item dropdown no-arrow">
+  <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+aria-haspopup="true" aria-expanded="false">
+<img class="img-profile rounded-circle" src="https://b.top4top.io/p_32621ht9x0.jpg" style="max-width: 60px">
+<span class="ml-2 d-none d-lg-inline text-white small">Hinata Bot</span>
+  </a>
+  <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="https://wa.me/6285602925923">
+                  <i class="fab fa-fw fa-whatsapp"></i>
+                  Nomor Bot
+                </a>
+              </div>
+            </li>
+          </ul>
+        </nav>
+<!-- Topbar -->
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+ <div class="page-content">
+<div class="row">
+<div class="d-flex justify-content-between">
+</div>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="/"><i class="fa fa-home faa-tada animated"> </i>&nbsp;Beranda</a></li>
+</ol>
+</div>
+   </div>
+<div class="col-xl-3 col-md-6 mb-4">
+  <div class="card h-100">
+<div class="card-body">
+  <div class="row align-items-center">
+<div class="col mr-2">
+  <div class="text-xs font-weight-bold text-uppercase mb-1">Pengunjung Website</div>
+  <div class="h5 mb-0 font-weight-bold text-gray-800" id="visits">00</div>
+</div>
+<div class="col-auto">
+  <i class="fas fa-eye fa-2x text-primary"></i>
+</div>
+  </div>
+</div>
+  </div>
+</div>
+<div class="col-xl-3 col-md-6 mb-4">
+  <div class="card h-100">
+  <div class="card-body">
+  <div class="row align-items-center">
+  <div class="col mr-2">
+  <div class="text-xs font-weight-bold text-uppercase mb-1">Waktu</div>
+ <div class="h5 mb-0 font-weight-bold text-gray-800" id='jam' ></div>
+  <div class="mt-2 mb-0 text-muted text-xs">
+  </div>
+  </div>
+  <div class="col-auto">
+  <b><i class="fas fa-clock fa-2x text-primary"></i>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+<!---Container Fluid-->
+  <!-- Footer -->
+ <form action="/verifikasi" method="GET">
+<div class="col-xl-3 col-md-6 mb-4">
+  <div class="card h-100">
+<div class="card-body">
+  <div class="row align-items-center">
+<div class="col mr-2">
+   <div class="h6 mb-0 font-weight-bold text-dark-800 text-uppercase">
+  <h6 class="text-center">Verifikasi Disini🤗</h6>
+  </div>
+  <input type="text" class="form-control" placeholder="nama kamu | contoh: Riycs" name="name" required=""><br>
+   <input type="number" class="form-control" placeholder="awali 62 | contoh: 6281xxx" name="phone" required=""><br>
+<button class="btn btn-danger btn-icon-split">
+ <span class="icon text-white-50">
+  <i class="fas fa-check"></i>
+ </span>
+ <span class="text">Kirim Kode</span>
+</button>
+ </div>
+</div>
+   </div>
+  </div>
+ </div>
+  </form>
+  <div class="col-xl-3 col-md-6 mb-4">
+<div class="card h-100">
+<div class="card-body">
+<div class="row no-gutters align-items-center">
+<div class="col mr-2">
+<center>
+<marquee>nsjsbswkaokasnsjajjajabs</marquee>
+<audio src="https://d.top4top.io/m_3262w0qur0.mp3" controls loop></audio>
+</center>
+  <!-- Scroll to top -->
+  <a class="scroll-to-top rounded" href="#page-top">
+<i class="fas fa-angle-up"></i>
+  </a>
+  <script async src="https://api.countapi.xyz/hit/hibot.riycs.my.id/visits?callback=cb"></script>
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="js/ruang-admin.js"></script>
+  <script src="vendor/chart.js/Chart.min.js"></script>
+  <script src="js/demo/chart-area-demo.js"></script>  
+</body>
+<script type="text/javascript">
+// 1 detik = 1000
+window.setTimeout("waktu()",1000);  
+function waktu() {   
+var tanggal = new Date();  
+setTimeout("waktu()",1000);  
+document.getElementById("jam").innerHTML = tanggal.getHours()+":"+tanggal.getMinutes()+":"+tanggal.getSeconds();
+}
+</script>
+<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+</html>

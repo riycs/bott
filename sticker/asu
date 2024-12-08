@@ -1,0 +1,61 @@
+// db
+//let secreto = JSON.parse(fs.readFileSync('./database/secreto_balas.json'))
+
+        /*if (!m.key.fromMe && secreto.find(i => i.sender === m.sender)) {
+            let dbx = secreto.find(i => i.sender === m.sender)
+			if (dbx.status === 'ENTER-MESSAGE') {
+		        if (['conversation', 'extendedTextMessage'].includes(m.type)) {
+				    if (m.body.startsWith(prefix+'balas_secreto')) return m.reply(`Bales satu-satu kak, masukin pesan balasan yang sebelumnya!`)
+				    if (m.body.startsWith(prefix)) return m.reply(`Jangan diawali dengan simbol jika kamu ingin membalas pesan menfess`)
+				    let text = `Hai kak, kamu menerima pesan balasan nih\n\nPesan yang kamu kirim sebelumnya:\n${dbx.pesan}\n\nPesan Balasannya:\n${m.body}`
+				    let mesek = await hisoka.sendMessage(dbx.pengirim, { text })
+				    hisoka.sendMessage(dbx.pengirim, { forward: m }, { quoted: mesek }).then(res => hisoka.sendMessage(dbx.pengirim, { text }))
+				    m.reply("Sukses mengirimkan balasan")
+	            }
+	            let position = secreto.indexOf(dbx)
+		        secreto.splice(position, 1)
+		        fs.writeFileSync('./database/secreto_balas.json', JSON.stringify(secreto, null, 2))
+	        }
+		}*/
+
+		// private
+            /*case "menfess": {
+            	if (!m.isOwner) return
+				if (m.isGroup) return
+				if (!m.text) return m.reply(`Silahkan masukkan format seperti contoh dibawah\n\nContoh format:\n${prefix + command} Nomer|Nama|Pesan`)
+				let [number_to, sender_name, msg_send] = m.text.split('|')
+				if (!number_to) return m.reply(`Format salah, masukkan nomer tujuan\n\nContoh Format:\n${prefix + command} Nomer|Secret|Hai Kak`)
+				if (isNaN(number_to)) return m.reply(`Tujuan Harus Berupa Nomor!\n\nContoh Format:\n${prefix + command} `+botNumber.split("@")[0]+'|Secret|Hai Kak')
+				number_to = number_to.replace(/[^0-9]/gi, '')+"@s.whatsapp.net"
+				if (!sender_name) return m.reply(`Format salah, masukkan nama Anda atau nama rahasia\n\nContoh Format:\n${command} `+number_to.split("@")[0]+'|Nama|Hai Kak')
+				if (!msg_send) return m.reply(`Format salah, masukkan pesan yang akan dikirim\n\nContoh Format:\n${command} ${number_to.split("@")[0]}|${sender_name}|Hai Kak`)
+				let cek_number = await hisoka.onWhatsApp(number_to)
+				if (cek_number.length === 0) return m.reply(`Nomer yang anda masukkan tidak terdaftar di WhatsApp!`)
+				number_to = cek_number[0].jid
+				if (m.sender === number_to) return m.reply(`Jangan kirim ke diri sendiri dong🥲`)
+                if (botNumber === number_to) return m.reply(`Jangan kirim ke nomer bot kak🥲`)
+				let text = `Hai kamu menerima pesan Rahasia nih\n\nDari: *${sender_name}*\nIsi Pesannya:\n${msg_send}`
+let button = baileys.generateWAMessageFromContent(number_to, { viewOnceMessage: { message: { 
+"messageContextInfo": { 
+"deviceListMetadata": {}, 
+"deviceListMetadataVersion": 2
+}, 
+interactiveMessage: baileys.proto.Message.InteractiveMessage.create({
+contextInfo: { 
+mentionedJid: [m.sender]
+}, body: baileys.proto.Message.InteractiveMessage.Body.create({ 
+text: teksnya
+}), 
+nativeFlowMessage: baileys.proto.Message.InteractiveMessage.NativeFlowMessage.create({ 
+buttons: [{
+"name": "quick_reply", "buttonParamsJson": "{\"display_text\":\"Balas pesan\",\"title\":\"Menfess\",\"id\":\".balas_secreto\"}" 
+}]
+})
+})} 
+}}, {}) 
+await hisoka.relayMessage(number_to, button.message, { 
+messageId: button.key.id 
+})
+				m.reply("Sukses mengirim pesan Rahasia ke nomer tersebut, silahkan tunggu jawaban dari penerima pesan, jika sudah dibalas bot akan otomatis mengirim balasannya!")
+		    }
+		    break*/
