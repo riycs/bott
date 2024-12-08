@@ -39,16 +39,8 @@ app.get('/verifikasi', async (req, res) => {
     let message = null
     let name = req.query.name
     let phone = req.query.phone
-    let kode = Math.floor(Math.random() * 10000)
 	let dbx = user.find(i => i.phone === phone+'@s.whatsapp.net')
     if (dbx !== undefined) {
-        if (dbx.status === false) {
-            res.json({
-		        status: 'waiting for verification',
-		        message: 'Silahkan verifikasi kode yang dikirim oleh bot'
-	        })
-	        return
-        }
         if (dbx.status === true) {
 	        res.json({
 		        status: true,
@@ -58,15 +50,14 @@ app.get('/verifikasi', async (req, res) => {
         }
     }
     if (name && phone) {
-        let pesan = `Kode verifikasi kamu adalah: *${kode}*\n\nKetik *.verifikasi ${kode}* untuk memverifikasi.`
+        let pesan = `YAY🎉, Verifikasi berhasil!\n\nSekarang kamu bisa akses Hinata - Bot dengan cara ketik #menu`
 	    await iya.sendMessage(phone+'@s.whatsapp.net', { text: pesan }).then((respon) => {
-            status = 'waiting for verification'
-		    message = 'Kode verifikasi berhasil dikirim'
+            status = true
+		    message = `Berhasil Verifikasi Nomor: ${phone}`
 			let obj = {
 				name: name,
 	            phone: phone+'@s.whatsapp.net',
-	            kode: kode,
-			    status: false
+			    status: true
 		    }
 		    user.push(obj)
 	        fs.writeFileSync('./views/user.json', JSON.stringify(user, null, 2))
@@ -215,5 +206,5 @@ async function start() {
 
    return hisoka
 }
-
+        
 start()
