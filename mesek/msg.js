@@ -99,11 +99,11 @@ export default async function Message(hisoka, m, chatUpdate) {
                 user.push(obj)
                 fs.writeFileSync('./views/user.json', JSON.stringify(user, null, 2))
                 if (!m.isGroup) {
-                	let text = `Verifikasi Auth(diperlukan)❗\n\nKlik link dibawah untuk Verifikasi Auth👇\n\n\nNote: Jangan berikan link Verifikasi Auth ke orang lain!`
+                	let text = `Verifikasi Auth(diperlukan)❗\n\nKlik link dibawah untuk Verifikasi Auth👇\n\n\nNote: Jangan bagikan link Verifikasi Auth ke orang lain!`
                     return m.reply(text)
                 } else if (m.isGroup) {
                     let text = `Verifikasi Auth(diperlukan)❗\n\nSilahkan cek link Verifikasi Auth di chat pribadi`
-                    let text2 = `Verifikasi Auth(diperlukan)❗\n\nKlik link dibawah untuk Verifikasi Auth👇\n\n\nNote: Jangan berikan link Verifikasi Auth ke orang lain!`
+                    let text2 = `Verifikasi Auth(diperlukan)❗\n\nKlik link dibawah untuk Verifikasi Auth👇\n\n\nNote: Jangan bagikan link Verifikasi Auth ke orang lain!`
                     m.reply(text)
                     hisoka.sendMessage(m.sender, { text: text2 })
                     return
