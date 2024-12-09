@@ -55,7 +55,7 @@ export default async function Message(hisoka, m, chatUpdate) {
             let filter = ["daftar"]
             if (filter.includes(anu)) cekForChat = true
         }
-        if (isCmd && !m.key.fromMe !cekForChat) {
+        if (isCmd && !m.key.fromMe && !cekForChat) {
             let db = user.find(i => i.number === m.sender)
             if (db === undefined) return m.reply(`Nomor kamu belum Terdaftar di Database, kirim Perintah: ${prefix}daftar`)
             if (db !== undefined) {
