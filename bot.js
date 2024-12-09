@@ -36,11 +36,11 @@ app.get('/', (req, res) => {
 })
 
 let hhh = {
-    auth: {
+    phone: {
         status: false,
         creator: `@riiycs`,
         code: 406,
-        message: 'Masukan parameter Auth'
+        message: 'Masukan parameter Phone'
     },
     error: {
     	status: false,
@@ -51,47 +51,37 @@ let hhh = {
 }
 
 app.get('/auth', async (req, res, next) => {
-    let auth = req.query.auth
-    if (!auth) return res.json(hhh.auth)
-    let db = user.find(i => i.auth === auth)
+    let phone = req.query.phone
+    if (!auth) return res.json(hhh.phone)
+    let db = user.find(i => i.phone === phone)
     if (db !== undefined) {
-    	if (db.auth !== auth) {
-	        return res.json({ // result
-            	status: false,
-                creator: `@riiycs`,
-                code: 406,
-                message: `Auth dengan kunci ${auth} Invalid, silahkan daftar dulu di Nomor Bot dengan cara ketik: #daftar`
-            })
-        }
         if (db.status === true) {
-	        return res.json({ // result
+	        res.json({ // result
             	status: true,
-                auth: db.auth,
-                name: db.name,
-                number: db.number,
+                username: db.username,
+                phone: db.phone,
                 message: 'Nomor kamu sudah Terverifikasi'
             })
+            return
         }
     }
-    let pesan = `YAY🎉, Verifikasi berhasil!\n\nHai ${db.name} sekarang kamu bisa akses Hinata - Bot dengan cara ketik: #menu`
-	await iya.sendMessage(db.number, { text: pesan }).then(respon => {
+    let pesan = `YAY🎉, Verifikasi berhasil!\n\nHai ${db.username} sekarang kamu bisa akses Hinata - Bot dengan cara ketik: #menu`
+	await iya.sendMessage(db.phone, { text: pesan }).then((respon) => {
         db.status = true
 	    fs.writeFileSync('./views/user.json', JSON.stringify(user, null, 2))
-	    return res.json({ // result
+	    res.json({ // result
         	status: true,
-            auth: db.auth,
-            name: db.name,
-            number: db.number,
+            username: db.username,
+            phone: db.phone,
             message: 'Auth successful'
         })
-    }).catch(() => return res.json(hhh.error))
+    }).catch((err) => {
+        res.json(hhh.error)
+    })
 })
 
 app.get('/userJson', async (req, res) => {
     res.json({
-        status: true,
-        author: `@riiycs`,
-        message: 'Database User Hinata - Bot',
         user: user
     })
 })
