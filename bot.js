@@ -12,6 +12,7 @@ import { parsePhoneNumber } from "libphonenumber-js"
 import open from "open"
 import path from "path"
 import { fileURLToPath } from "url"
+import fs from "fs"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -40,6 +41,12 @@ let hhh = {
         creator: `@riiycs`,
         code: 406,
         message: 'Masukan parameter Auth'
+    },
+    error: {
+    	status: false,
+        author: `@riiycs`,
+        code: 406,
+        message: 'Error, silahkan kembali ke halaman utama'
     }
 }
 
@@ -48,17 +55,18 @@ app.get('/auth', async (req, res, next) => {
     if (!auth) return res.json(hhh.auth)
     let db = user.find(i => i.auth === auth)
     if (db !== undefined) {
-    	if (db === undefined) {
+    	if (db.auth !== auth) {
 	        return res.json({ // result
             	status: false,
                 creator: `@riiycs`,
                 code: 406,
-                message: 'Nama/Nomor kamu tidak terdeteksi di Database nih🤔, silahkan daftar dulu di Nomor Bot dengan cara ketik: #daftar'
+                message: `Auth dengan kunci ${auth} Invalid, silahkan daftar dulu di Nomor Bot dengan cara ketik: #daftar`
             })
+        }
         if (db.status === true) {
 	        return res.json({ // result
             	status: true,
-                auth: 'private'
+                auth: db.auth,
                 name: db.name,
                 number: db.number,
                 message: 'Nomor kamu sudah Terverifikasi'
@@ -66,24 +74,17 @@ app.get('/auth', async (req, res, next) => {
         }
     }
     let pesan = `YAY🎉, Verifikasi berhasil!\n\nHai ${db.name} sekarang kamu bisa akses Hinata - Bot dengan cara ketik: #menu`
-	await iya.sendMessage(db.number, { text: pesan }).then((respon) => {
+	await iya.sendMessage(db.number, { text: pesan }).then(respon => {
         db.status = true
 	    fs.writeFileSync('./views/user.json', JSON.stringify(user, null, 2))
-	    res.json({ // result
+	    return res.json({ // result
         	status: true,
-            auth: 'private',
-            name: name,
-            number: number,
+            auth: db.auth,
+            name: db.name,
+            number: db.number,
             message: 'Auth successful'
         })
-    }).catch((err) => {
-        res.json({ // result
-        	status: false,
-            author: `@riiycs`,
-            code: 406,
-            message: 'Error, silahkan kembali ke halaman utama'
-        })
-    })
+    }).catch(() => return res.json(hhh.error))
 })
 
 app.get('/userJson', async (req, res) => {
