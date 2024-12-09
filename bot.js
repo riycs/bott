@@ -34,46 +34,64 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/docs.html')
 })
 
-app.get('/verifikasi', async (req, res) => {
-    let status = false
-    let message = null
-    let name = req.query.name
-    let phone = req.query.phone
-	let dbx = user.find(i => i.phone === phone+'@s.whatsapp.net')
-    if (dbx !== undefined) {
-        if (dbx.status === true) {
-	        res.json({
-		        status: true,
-		        message: 'Nomor kamu sudah terverifikasi'
-	        })
-	        return
+let hhh = {
+    auth: {
+        status: false,
+        creator: `@riiycs`,
+        code: 406,
+        message: 'Masukan parameter Auth'
+    }
+}
+
+app.get('/auth', async (req, res, next) => {
+    let auth = req.query.auth
+    if (!auth) return res.json(hhh.auth)
+    let db = user.find(i => i.auth === auth)
+    if (db !== undefined) {
+    	if (db === undefined) {
+	        return res.json({ // result
+            	status: false,
+                creator: `@riiycs`,
+                code: 406,
+                message: 'Nama/Nomor kamu tidak terdeteksi di Database nih🤔, silahkan daftar dulu di Nomor Bot dengan cara ketik: #daftar'
+            })
+        if (db.status === true) {
+	        return res.json({ // result
+            	status: true,
+                auth: 'private'
+                name: db.name,
+                number: db.number,
+                message: 'Nomor kamu sudah Terverifikasi'
+            })
         }
     }
-    if (name && phone) {
-        let pesan = `YAY🎉, Verifikasi berhasil!\n\nSekarang kamu bisa akses Hinata - Bot dengan cara ketik #menu`
-	    await iya.sendMessage(phone+'@s.whatsapp.net', { text: pesan }).then((respon) => {
-            status = true
-		    message = `Berhasil Verifikasi Nomor: ${phone}`
-			let obj = {
-				name: name,
-	            phone: phone+'@s.whatsapp.net',
-			    status: true
-		    }
-		    user.push(obj)
-	        fs.writeFileSync('./views/user.json', JSON.stringify(user, null, 2))
-	    }).catch((err) => {
-	        message = 'Error, silahkan kembali ke halaman utama'
-	    })
-    }
-    res.json({
-        status: status,
-        message: message
+    let pesan = `YAY🎉, Verifikasi berhasil!\n\nHai ${db.name} sekarang kamu bisa akses Hinata - Bot dengan cara ketik: #menu`
+	await iya.sendMessage(db.number, { text: pesan }).then((respon) => {
+        db.status = true
+	    fs.writeFileSync('./views/user.json', JSON.stringify(user, null, 2))
+	    res.json({ // result
+        	status: true,
+            auth: 'private',
+            name: name,
+            number: number,
+            message: 'Auth successful'
+        })
+    }).catch((err) => {
+        res.json({ // result
+        	status: false,
+            author: `@riiycs`,
+            code: 406,
+            message: 'Error, silahkan kembali ke halaman utama'
+        })
     })
 })
 
 app.get('/userJson', async (req, res) => {
     res.json({
-        user
+        status: true,
+        author: `@riiycs`,
+        message: 'Database User Hinata - Bot',
+        user: user
     })
 })
 
