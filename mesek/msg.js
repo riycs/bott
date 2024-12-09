@@ -48,11 +48,24 @@ export default async function Message(hisoka, m, chatUpdate) {
             }
         }
 
-        // verifikasi
+        // verifikasi auth
         if (isCmd && !m.key.fromMe) {
-            let hhh = user.find(i => i.phone === m.sender)
-            let text = "*[] ACCESS DENIED*\n\nUntuk mendapatkan Akses() Verifikasi Nomor kamu dulu, ya!, Klik link dibawah untuk Verifikasi \n"
-            if (hhh === undefined) return m.reply(text)
+            let db = user.find(i => i.number === m.sender)
+            if (db !== undefined) {
+                if (m.isGroup) {
+                	if (db.status === false) {
+                    	let text = `Verifikasi Auth(diperlukan)❗\n\nKlik link dibawah untuk Verifikasi Auth👇\n\n\nNote: Jangan berikan link Verifikasi Auth ke orang lain!`
+                        if (db.status === false) return m.reply(text)
+                    }
+                } else if (!m.isGroup) {
+                	if (db.status === false) {
+                        let text = `Verifikasi Auth(diperlukan)❗\n\nSilahkan cek link Verifikasi Auth di chat pribadi`
+                        let text2 = `Verifikasi Auth(diperlukan)❗\n\nKlik link dibawah untuk Verifikasi Auth👇\n\n\nNote: Jangan berikan link Verifikasi Auth ke orang lain!`
+                        await m.reply(text)
+                        await hisoka.sendMessage(db.number, { text: text2 })
+                    }
+                }
+            }
         }
 
         // log chat
@@ -62,6 +75,32 @@ export default async function Message(hisoka, m, chatUpdate) {
 
         switch (command) {
         	// main
+            case "daftar": {
+            	let db = user.find(i => i.number === m.sender)
+                if (db !== undefined) {
+                	if (db.status === true) return m.reply("Nomor kamu sudah Terverifikasi!")
+                    if (db.status === false) return m.reply("Menunggu Verifikasi Auth")
+                }
+            	if (!m.text) return m.reply(`Penggunaan: ${prefix + command} Nama\n\nContoh: ${prefix + command} Hinata`)
+                let obj = {
+                	status: false,
+                    auth: Func.getRandom(5),
+                    name: m.text,
+                    number: m.sender
+                }
+                user.push(obj)
+                fs.writeFileSync('./views/user.json', JSON.stringify(user, null, 2))
+                if (m.isGroup) {
+                	let text = `Verifikasi Auth(diperlukan)❗\n\nKlik link dibawah untuk Verifikasi Auth👇\n\n\nNote: Jangan berikan link Verifikasi Auth ke orang lain!`
+                    return m.reply(text)
+                } else if (!m.isGroup) {
+                    let text = `Verifikasi Auth(diperlukan)❗\n\nSilahkan cek link Verifikasi Auth di chat pribadi`
+                    let text2 = `Verifikasi Auth(diperlukan)❗\n\nKlik link dibawah untuk Verifikasi Auth👇\n\n\nNote: Jangan berikan link Verifikasi Auth ke orang lain!`
+                    await m.reply(text)
+                    await hisoka.sendMessage(m.sender, { text: text2 })
+                }
+            }
+            break
         	case "menu": case "help": {
                 let text = `*List*
 ${prefix}tiktok
