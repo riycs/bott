@@ -49,20 +49,28 @@ export default async function Message(hisoka, m, chatUpdate) {
         }
 
         // verifikasi auth
-        if (isCmd && !m.key.fromMe) {
+        let cekForChat = false
+        if (isCmd) {
+            let anu = command.split(prefix)[0]
+            let filter = ["daftar"]
+            if (filter.includes(anu)) cekForChat = true
+        }
+        if (isCmd && !m.key.fromMe !cekForChat) {
             let db = user.find(i => i.number === m.sender)
+            if (db === undefined) return m.reply(`Nomor kamu belum Terdaftar di Database, kirim Perintah: ${prefix}daftar`)
             if (db !== undefined) {
-                if (m.isGroup) {
+                if (!m.isGroup) {
                 	if (db.status === false) {
-                    	let text = `Verifikasi Auth(diperlukan)❗\n\nKlik link dibawah untuk Verifikasi Auth👇\n\n\nNote: Jangan berikan link Verifikasi Auth ke orang lain!`
-                        if (db.status === false) return m.reply(text)
+                    	let text = `Verifikasi Auth(diperlukan)❗\n\nKlik link dibawah untuk Verifikasi Auth👇\n\n\nNote: Jangan bagikan link Verifikasi Auth ke orang lain!`
+                        return m.reply(text)
                     }
-                } else if (!m.isGroup) {
+                } if (m.isGroup) {
                 	if (db.status === false) {
                         let text = `Verifikasi Auth(diperlukan)❗\n\nSilahkan cek link Verifikasi Auth di chat pribadi`
-                        let text2 = `Verifikasi Auth(diperlukan)❗\n\nKlik link dibawah untuk Verifikasi Auth👇\n\n\nNote: Jangan berikan link Verifikasi Auth ke orang lain!`
-                        await m.reply(text)
-                        await hisoka.sendMessage(db.number, { text: text2 })
+                        let text2 = `Verifikasi Auth(diperlukan)❗\n\nKlik link dibawah untuk Verifikasi Auth👇\n\n\nNote: Jangan bagikan link Verifikasi Auth ke orang lain!`
+                        m.reply(text)
+                        hisoka.sendMessage(db.number, { text: text2 })
+                        return
                     }
                 }
             }
@@ -79,30 +87,34 @@ export default async function Message(hisoka, m, chatUpdate) {
             	let db = user.find(i => i.number === m.sender)
                 if (db !== undefined) {
                 	if (db.status === true) return m.reply("Nomor kamu sudah Terverifikasi!")
-                    if (db.status === false) return m.reply("Menunggu Verifikasi Auth")
+                    if (db.status === false) return m.reply("Menunggu Verifikasi Auth...")
                 }
             	if (!m.text) return m.reply(`Penggunaan: ${prefix + command} Nama\n\nContoh: ${prefix + command} Hinata`)
                 let obj = {
                 	status: false,
-                    auth: Func.getRandom(5),
+                    auth: Func.getRandom(),
                     name: m.text,
                     number: m.sender
                 }
                 user.push(obj)
                 fs.writeFileSync('./views/user.json', JSON.stringify(user, null, 2))
-                if (m.isGroup) {
+                if (!m.isGroup) {
                 	let text = `Verifikasi Auth(diperlukan)❗\n\nKlik link dibawah untuk Verifikasi Auth👇\n\n\nNote: Jangan berikan link Verifikasi Auth ke orang lain!`
                     return m.reply(text)
-                } else if (!m.isGroup) {
+                } else if (m.isGroup) {
                     let text = `Verifikasi Auth(diperlukan)❗\n\nSilahkan cek link Verifikasi Auth di chat pribadi`
                     let text2 = `Verifikasi Auth(diperlukan)❗\n\nKlik link dibawah untuk Verifikasi Auth👇\n\n\nNote: Jangan berikan link Verifikasi Auth ke orang lain!`
-                    await m.reply(text)
-                    await hisoka.sendMessage(m.sender, { text: text2 })
+                    m.reply(text)
+                    hisoka.sendMessage(m.sender, { text: text2 })
+                    return
                 }
             }
             break
         	case "menu": case "help": {
                 let text = `*List*
+${prefix}help
+${prefix}owner
+${prefix}request
 ${prefix}tiktok
 ${prefix}sticker
 ${prefix}toimage
